@@ -11,7 +11,7 @@
           </button>
           
           <div class="divider"></div>
-          
+
           <div class="address-item">
             <img src="@/assets/images/logo.png" alt="Delivery Icon" class="delivery-icon" />
             <div class="address-details">
@@ -203,9 +203,7 @@ export default {
 
 .divider {
   border-bottom: 2px solid #ccc;
-  /* Light grey border for separation */
   width: 100%;
-  /* Ensures the divider stretches across the container */
 }
 
 .address-item {
@@ -221,8 +219,6 @@ export default {
   border-radius: 100%;
   margin-right: 10px;
 }
-
-
 
 .item-price {
   font-weight: bold;

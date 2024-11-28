@@ -1,9 +1,9 @@
 <template>
-  <div class="popup-overlay" v-if="showPopup">
+  <div class="popup-overlay" v-if="isPopupShown">
     <div class="popup-container">
-      <button class="close-button" @click="closePopup">X</button>
+      <button class="close-button" @click="closePopup">&times;</button>
       <h2>ADD NEW ADDRESS</h2>
-      <form>
+      <form @submit.prevent="saveAddress">
         <div class="form-group">
           <label for="firstName">First Name:</label>
           <input type="text" id="firstName" placeholder="Enter first name">
@@ -44,15 +44,31 @@ export default {
   data() {
     return {
       isPopupShown: false,
+      firstName: '',
+      lastName: '',
+      telephone: '',
+      address: '',
+      country: 'Cambodia',
+      city: 'Phnom Penh'
     };
   },
   methods: {
     showPopup() {
-      this.isPopupShown  = true;
+      this.isPopupShown = true;
     },
     closePopup() {
-      this.isPopupShown  = false;
+      this.isPopupShown = false;
     },
+    saveAddress() {
+      // Validate the input data
+      if (!this.firstName || !this.lastName || !this.telephone || !this.address) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      // Here you would typically send the data to a server
+      console.log('Saving address:', this.firstName, this.lastName, this.telephone, this.address, this.country, this.city);
+      this.closePopup(); // Optionally close the popup after saving
+    }
   },
 };
 </script>

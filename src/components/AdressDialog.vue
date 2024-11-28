@@ -3,9 +3,10 @@
     <div class="modal-overlay" v-if="show">
       <div class="modal">
         <div class="modal-header">
-          <h2>Add New Address</h2>
+          <h2>Address Book</h2>
           <button @click="hideDialog" class="close-button">&times;</button>
         </div>
+        <div class="divider"></div>
         <div class="modal-content">
           <!-- <form @submit.prevent="submitAddress">
             <div class="form-group">
@@ -30,6 +31,12 @@
             </div>
           </form> -->
         </div>
+        
+        <div class="modal-footer">
+          <!-- Button placed outside the form for full-width display at the bottom of the modal -->
+          <button class="full-width-button" @click="submitAddress">Add new address</button>
+        </div>
+
       </div>
     </div>
   </transaction>
@@ -72,7 +79,7 @@ export default {
   transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0;
+  opacity: 0; 
 }
 
 .modal-overlay {
@@ -90,26 +97,57 @@ export default {
 }
 
 .modal {
-  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column; /* Stacks children vertically */
+  justify-content: space-between; /* Separates content and button */
+  height: 100vh;
+  width: 500px;
+  max-width: 500px;
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  width: 500px; /* Adjust width as necessary */
-  max-width: 1000px; /* Maximum width can be adjusted */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
-  overflow-y: auto; /* Adds scroll to the modal content if it exceeds the viewport height */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden; /* Keeps everything within the bounds of border-radius */
+}
+
+.modal-content {
+  flex-grow: 1; /* Allows the content to expand and fill the space */
+  overflow-y: auto; /* Enables scrolling within the content area if needed */
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+}
+
+.modal-header h2 {
+  flex-grow: 1; /* Allows the title to take up any extra space */
+  text-align: center; /* Centers the title text */
+  margin: 0; /* Removes any default margin */
+}
+
+.modal-footer {
+  width: 100%;
+  padding-bottom: 35px;
+}
+
+.full-width-button {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #212529;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px; /* Ensures space between the form and the button */
 }
 
 .close-button {
   border: none;
   background: none;
-  font-size: 24px;
+  font-size: 40px;
   cursor: pointer;
 }
 
@@ -121,4 +159,10 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
+.divider {
+  border-bottom: 1px solid #A7ABAE;
+  width: 100%;
+}
+
 </style>
