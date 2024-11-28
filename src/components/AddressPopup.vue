@@ -1,45 +1,47 @@
 <template>
-  <div class="popup-overlay" v-if="isPopupShown">
-    <div class="popup-container">
-      <button class="close-button" @click="closePopup">&times;</button>
-      <h2>ADD NEW ADDRESS</h2>
-      <form @submit.prevent="saveAddress">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="firstName">First name:</label>
-            <input type="text" id="firstName" placeholder="Enter first name" v-model="firstName">
+  <transition name="fade-slide">
+    <div class="popup-overlay" v-if="isPopupShown">
+      <div class="popup-container">
+        <button class="close-button" @click="closePopup">&times;</button>
+        <h2>ADD NEW ADDRESS</h2>
+        <form @submit.prevent="saveAddress">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First name:</label>
+              <input type="text" id="firstName" placeholder="Enter first name" v-model="firstName">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last name:</label>
+              <input type="text" id="lastName" placeholder="Enter last name" v-model="lastName">
+            </div>
           </div>
           <div class="form-group">
-            <label for="lastName">Last name:</label>
-            <input type="text" id="lastName" placeholder="Enter last name" v-model="lastName">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="telephone">Telephone (Required):</label>
-          <input type="tel" id="telephone" placeholder="+855 Enter mobile number" v-model="telephone">
-        </div>
-        <div class="form-group">
-          <label for="address">Address (Required):</label>
-          <input type="text" id="address" placeholder="Enter address" v-model="address">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="country">Country (Required):</label>
-            <select id="country" v-model="country">
-              <option value="Cambodia">Cambodia</option>
-            </select>
+            <label for="telephone">Telephone (Required):</label>
+            <input type="tel" id="telephone" placeholder="+855 Enter mobile number" v-model="telephone">
           </div>
           <div class="form-group">
-            <label for="city">City/Province (Required):</label>
-            <select id="city" v-model="city">
-              <option value="Phnom Penh">Phnom Penh</option>
-            </select>
+            <label for="address">Address (Required):</label>
+            <input type="text" id="address" placeholder="Enter address" v-model="address">
           </div>
-        </div>
-        <button type="submit" class="save-button">Save Address</button>
-      </form>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="country">Country (Required):</label>
+              <select id="country" v-model="country">
+                <option value="Cambodia">Cambodia</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="city">City/Province (Required):</label>
+              <select id="city" v-model="city">
+                <option value="Phnom Penh">Phnom Penh</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="save-button">Save Address</button>
+        </form>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -57,9 +59,6 @@ export default {
     };
   },
   methods: {
-    // showPopup() {
-    //   this.isPopupShown = true;
-    // },
     closePopup() {
       this.$emit('close'); // Notify the parent
     },
@@ -78,6 +77,16 @@ export default {
 </script>
 
 <style scoped>
+
+/* Animation Styles */
+.fade-slide-enter-active, .fade-slide-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-slide-enter-from, .fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-20px); /* Slide in/out effect */
+}
+
 .popup-overlay {
   position: fixed;
   top: 0;
