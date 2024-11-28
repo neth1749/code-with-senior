@@ -1,29 +1,34 @@
 <template>
-  <div class="modal" v-if="show">
-    <div class="modal-content">
-      <h2>Add New Address</h2>
-      <form @submit.prevent="submitAddress">
-        <div class="form-group">
-          <label for="recipientName">Recipient Name:</label>
-          <input type="text" id="recipientName" v-model="recipientName" required>
-        </div>
-        <div class="form-group">
-          <label for="deliveryAddress">Delivery Address:</label>
-          <input type="text" id="deliveryAddress" v-model="deliveryAddress" required>
-        </div>
-        <div class="form-group">
-          <label for="phoneNumber">Phone Number:</label>
-          <input type="tel" id="phoneNumber" v-model="phoneNumber" required>
-        </div>
-        <div class="form-group">
-          <label for="notes">Additional Notes:</label>
-          <textarea id="notes" v-model="notes"></textarea>
-        </div>
-        <div class="button-group">
-          <button type="button" @click="hideDialog">Cancel</button>
-          <button type="submit">Save</button>
-        </div>
-      </form>
+  <div class="modal-overlay" v-if="show">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Add New Address</h2>
+        <button @click="hideDialog" class="close-button">&times;</button>
+      </div>
+      <div class="modal-content">
+        <form @submit.prevent="submitAddress">
+          <div class="form-group">
+            <label for="recipientName">Recipient Name:</label>
+            <input type="text" id="recipientName" v-model="recipientName" required>
+          </div>
+          <div class="form-group">
+            <label for="deliveryAddress">Delivery Address:</label>
+            <input type="text" id="deliveryAddress" v-model="deliveryAddress" required>
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" v-model="phoneNumber" required>
+          </div>
+          <div class="form-group">
+            <label for="notes">Additional Notes:</label>
+            <textarea id="notes" v-model="notes"></textarea>
+          </div>
+          <div class="button-group">
+            <button type="button" @click="clearForm">Cancel</button>
+            <button type="submit">Save</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -31,9 +36,9 @@
 <script>
 export default {
   name: 'AddressDialog',
+  props: ['show'],
   data() {
     return {
-      show: false,
       recipientName: '',
       deliveryAddress: '',
       phoneNumber: '',
@@ -41,75 +46,69 @@ export default {
     };
   },
   methods: {
-    showDialog() {
-      this.show = true;
-    },
     hideDialog() {
-      this.show = false;
+      this.$emit('update:show', false);
+      this.clearForm();
+    },
+    submitAddress() {
+      // Implement your submission logic here
+      this.hideDialog();
+    },
+    clearForm() {
       this.recipientName = '';
       this.deliveryAddress = '';
       this.phoneNumber = '';
       this.notes = '';
-    },
-    submitAddress() {
-      // Handle form submission here, e.g., send data to API or update local state
-      console.log('Submitting address:', {
-        recipientName: this.recipientName,
-        deliveryAddress: this.deliveryAddress,
-        phoneNumber: this.phoneNumber,
-        notes: this.notes,
-      });
-      this.hideDialog();
-    },
+    }
   },
 };
 </script>
 
 <style scoped>
-.modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.modal-overlay {
   position: fixed;
+  height: 100%;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background-color: #00000040;
+  z-index: 1000;
 }
 
-.modal-content {
+.modal {
+  height: 100vh; /* Full viewport height */
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  width: 400px;
+  width: auto; /* Adjust width as necessary */
+  max-width: 1500px; /* Maximum width can be adjusted */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
+  overflow-y: auto; /* Adds scroll to the modal content if it exceeds the viewport height */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 .form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 20px; /* Increased margin for better spacing */
 }
 
 .button-group {
   display: flex;
   justify-content: space-between;
-}
-
-.button-group button {
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.button-group button[type="submit"] {
-  background-color: #000;
-  color: white;
 }
 </style>

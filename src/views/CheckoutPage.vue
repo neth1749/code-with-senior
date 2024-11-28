@@ -1,21 +1,18 @@
 <template>
   <div class="checkout-container">
-     <AddressDialog v-if="showAddressDialog" />
-     <button @click="showAddressDialog = true">Add New Address</button>
+
+    <!-- <button @click="showAddressDialog = true">Add New Address</button> -->
     <div class="left-panel">
       <section class="delivery-address">
         <h2>Delivery address</h2>
         <div class="address-content">
-          <button class="add-address" @click="addAddress">
+          <button class="add-address" @click="showAddressDialog = true">
             Add Your Address
           </button>
+          
           <div class="divider"></div>
           <div class="address-item">
-            <img
-              src="@/assets/images/logo.png"
-              alt="Delivery Icon"
-              class="delivery-icon"
-            />
+            <img src="@/assets/images/logo.png" alt="Delivery Icon" class="delivery-icon" />
             <div class="address-details">
               <p>PTES Sart Delivery</p>
               <small>(Delivery within 2-3 days)</small>
@@ -42,7 +39,7 @@
       <section class="payment-options">
         <h2>Payment Methods</h2>
         <form class="payment-cart" @submit.prevent="submitPayment">
-          <label  v-for="method in paymentMethods" :key="method.id">
+          <label v-for="method in paymentMethods" :key="method.id">
             <input type="radio" name="payment" :value="method.id" />
             {{ method.name }}
           </label>
@@ -52,18 +49,15 @@
       <section class="contact-preference">
         <h2>Preferred contact line:</h2>
         <form class="contact">
-          <label
-            ><input type="checkbox" value="Phone" />
-            <p>Phone Call</p></label
-          >
-          <label
-            ><input type="checkbox" value="Telegram" />
-            <p>Telegram</p></label
-          ><br />
-          <label
-            ><input type="checkbox" value="WhatsApp" />
-            <p>WhatsApp</p></label
-          ><br />
+          <label><input type="checkbox" value="Phone" />
+            <p>Phone Call</p>
+          </label>
+          <label><input type="checkbox" value="Telegram" />
+            <p>Telegram</p>
+          </label><br />
+          <label><input type="checkbox" value="WhatsApp" />
+            <p>WhatsApp</p>
+          </label><br />
         </form>
       </section>
 
@@ -94,28 +88,20 @@
       </div>
       <button @click="proceedToCheckout" class="button-checkout">Proceed to Checkout</button>
     </div>
+
+    <!-- Pass showAddressDialog and methods to AddressDialog -->
+    <AdressDialog :show="showAddressDialog"  @update:show="showAddressDialog = $event" />
+
   </div>
 </template>
 
-<template>
-  <div class="checkout-container">
-    <AddressDialog v-if="showAddressDialog" />
-
-    <div class="left-panel">
-      <button class="add-address" @click="showAddressDialog = true">
-        Add Your Address
-      </button>
-    </div>
-
-    </div>
-</template>
-
 <script>
-import AddressDialog from './AddressDialog.vue';
+import AdressDialog from '../components/AdressDialog.vue';
 
 export default {
+  name: 'CheckoutPage',
   components: {
-    AddressDialog,
+    AdressDialog,
   },
   data() {
     return {
@@ -145,7 +131,15 @@ export default {
     addAddress() {
       this.showAddressDialog = true;
     },
-    // ... other methods ...
+    hideAddressDialog() {
+      this.showAddressDialog = false;
+    },
+    proceedToCheckout() {
+      // Add your logic here to handle the checkout process
+    },
+    submitPayment() {
+      // Your payment submission logic goes here
+    },
   },
 };
 </script>
@@ -171,6 +165,7 @@ export default {
   width: 100px;
   height: auto;
 }
+
 .cart-item {
   display: flex;
   align-items: center;
@@ -194,6 +189,7 @@ export default {
   border-radius: 5px;
   padding: 29px 44px 29px 44px;
 }
+
 .address-content .add-address {
   align-self: center;
   width: 50%;
@@ -204,14 +200,17 @@ export default {
 }
 
 .divider {
-  border-bottom: 2px solid #ccc; /* Light grey border for separation */
-  width: 100%; /* Ensures the divider stretches across the container */
+  border-bottom: 2px solid #ccc;
+  /* Light grey border for separation */
+  width: 100%;
+  /* Ensures the divider stretches across the container */
 }
 
 .address-item {
   display: flex;
   align-items: center;
-  margin-top: 20px; /* Spacing above the address item */
+  margin-top: 20px;
+  /* Spacing above the address item */
 }
 
 .delivery-icon {
@@ -234,6 +233,7 @@ export default {
   flex-direction: column;
   margin-left: 10px;
 }
+
 .cart-item {
   display: flex;
   justify-content: center;
@@ -245,6 +245,7 @@ export default {
   border-radius: 5px;
   padding: 29px 44px 29px 44px;
 }
+
 .contact {
   display: flex;
   align-items: center;
@@ -253,56 +254,65 @@ export default {
   color: #333;
   cursor: pointer;
 }
+
 .contact-preference {
   width: 500px;
   background-color: rgba(128, 128, 128, 0.181);
 }
+
 .contact {
   display: flex;
   justify-content: space-between;
 }
+
 .contact label {
   display: flex;
 }
+
 .contact p {
   background-color: white;
   padding: 4px 10px;
   border: 1px solid;
   border-radius: 5px;
 }
+
 .text {
   width: 500px;
   height: 100px;
   font-size: 20px;
 }
+
 hr {
   width: 500px;
   float: inline-start;
   border: 2px solid rgba(128, 128, 128, 0.677);
 }
+
 .pay-money {
   margin-top: 30px;
   width: 500px;
   background: #0000002a;
 }
-.total-money{
+
+.total-money {
   width: 500px;
   display: flex;
   padding: 3px 0px;
   justify-content: space-between;
 }
-.button-checkout{
+
+.button-checkout {
   margin-top: 10px;
   width: 500px;
-  padding:15px;
+  padding: 15px;
   background: #000;
   color: white;
 
 }
-.payment-cart{
-  display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
 
+.payment-cart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 </style>

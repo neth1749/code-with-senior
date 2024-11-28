@@ -40,18 +40,18 @@
 
 <script>
 export default {
-  name: 'Popup',
+  name: 'AddressPopup',
   data() {
     return {
-      showPopup: false,
+      isPopupShown: false,
     };
   },
   methods: {
     showPopup() {
-      this.showPopup = true;
+      this.isPopupShown  = true;
     },
     closePopup() {
-      this.showPopup = false;
+      this.isPopupShown  = false;
     },
   },
 };
