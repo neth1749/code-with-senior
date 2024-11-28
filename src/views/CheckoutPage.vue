@@ -1,16 +1,17 @@
 <template>
   <div class="checkout-container">
 
-    <!-- <button @click="showAddressDialog = true">Add New Address</button> -->
     <div class="left-panel">
       <section class="delivery-address">
         <h2>Delivery address</h2>
         <div class="address-content">
+
           <button class="add-address" @click="showAddressDialog = true">
             Add Your Address
           </button>
           
           <div class="divider"></div>
+          
           <div class="address-item">
             <img src="@/assets/images/logo.png" alt="Delivery Icon" class="delivery-icon" />
             <div class="address-details">
@@ -18,6 +19,7 @@
               <small>(Delivery within 2-3 days)</small>
             </div>
           </div>
+
         </div>
       </section>
 

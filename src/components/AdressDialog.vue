@@ -1,36 +1,38 @@
 <template>
-  <div class="modal-overlay" v-if="show">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>Add New Address</h2>
-        <button @click="hideDialog" class="close-button">&times;</button>
-      </div>
-      <div class="modal-content">
-        <form @submit.prevent="submitAddress">
-          <div class="form-group">
-            <label for="recipientName">Recipient Name:</label>
-            <input type="text" id="recipientName" v-model="recipientName" required>
-          </div>
-          <div class="form-group">
-            <label for="deliveryAddress">Delivery Address:</label>
-            <input type="text" id="deliveryAddress" v-model="deliveryAddress" required>
-          </div>
-          <div class="form-group">
-            <label for="phoneNumber">Phone Number:</label>
-            <input type="tel" id="phoneNumber" v-model="phoneNumber" required>
-          </div>
-          <div class="form-group">
-            <label for="notes">Additional Notes:</label>
-            <textarea id="notes" v-model="notes"></textarea>
-          </div>
-          <div class="button-group">
-            <button type="button" @click="clearForm">Cancel</button>
-            <button type="submit">Save</button>
-          </div>
-        </form>
+  <transaction name="fade">
+    <div class="modal-overlay" v-if="show">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Add New Address</h2>
+          <button @click="hideDialog" class="close-button">&times;</button>
+        </div>
+        <div class="modal-content">
+          <!-- <form @submit.prevent="submitAddress">
+            <div class="form-group">
+              <label for="recipientName">Recipient Name:</label>
+              <input type="text" id="recipientName" v-model="recipientName" required>
+            </div>
+            <div class="form-group">
+              <label for="deliveryAddress">Delivery Address:</label>
+              <input type="text" id="deliveryAddress" v-model="deliveryAddress" required>
+            </div>
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number:</label>
+              <input type="tel" id="phoneNumber" v-model="phoneNumber" required>
+            </div>
+            <div class="form-group">
+              <label for="notes">Additional Notes:</label>
+              <textarea id="notes" v-model="notes"></textarea>
+            </div>
+            <div class="button-group">
+              <button type="button" @click="clearForm">Cancel</button>
+              <button type="submit">Save</button>
+            </div>
+          </form> -->
+        </div>
       </div>
     </div>
-  </div>
+  </transaction>
 </template>
 
 <script>
@@ -65,6 +67,14 @@ export default {
 </script>
 
 <style scoped>
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
+
 .modal-overlay {
   position: fixed;
   height: 100%;
@@ -84,8 +94,8 @@ export default {
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  width: auto; /* Adjust width as necessary */
-  max-width: 1500px; /* Maximum width can be adjusted */
+  width: 500px; /* Adjust width as necessary */
+  max-width: 1000px; /* Maximum width can be adjusted */
   box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
   overflow-y: auto; /* Adds scroll to the modal content if it exceeds the viewport height */
 }
