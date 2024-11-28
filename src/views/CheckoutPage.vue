@@ -130,12 +130,12 @@ export default {
     };
   },
   methods: {
-    addAddress() {
-      this.showAddressDialog = true;
-    },
-    hideAddressDialog() {
-      this.showAddressDialog = false;
-    },
+    // addAddress() {
+    //   this.showAddressDialog = true;
+    // },
+    // hideAddressDialog() {
+    //   this.showAddressDialog = false;
+    // },
     proceedToCheckout() {
       // Add your logic here to handle the checkout process
     },

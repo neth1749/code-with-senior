@@ -1,12 +1,15 @@
 <template>
-  <transaction name="fade">
+  <transition name="fade">
     <div class="modal-overlay" v-if="show">
       <div class="modal">
+
         <div class="modal-header">
           <h2>Address Book</h2>
           <button @click="hideDialog" class="close-button">&times;</button>
         </div>
+
         <div class="divider"></div>
+
         <div class="modal-content">
           <!-- <form @submit.prevent="submitAddress">
             <div class="form-group">
@@ -31,23 +34,30 @@
             </div>
           </form> -->
         </div>
-        
+
         <div class="modal-footer">
           <!-- Button placed outside the form for full-width display at the bottom of the modal -->
-          <button class="full-width-button" @click="submitAddress">Add new address</button>
+          <button class="full-width-button"  @click="showAddressPopup">Add new address</button>
         </div>
-
+        <AddressPopup :isPopupShown="isPopupShown" @close="closeAddressPopup" />
       </div>
     </div>
-  </transaction>
+  </transition>
 </template>
 
 <script>
+
+import AddressPopup from '../components/AddressPopup.vue';
+
 export default {
   name: 'AddressDialog',
+  components: {
+    AddressPopup
+  },
   props: ['show'],
   data() {
     return {
+      isPopupShown: false,
       recipientName: '',
       deliveryAddress: '',
       phoneNumber: '',
@@ -68,13 +78,20 @@ export default {
       this.deliveryAddress = '';
       this.phoneNumber = '';
       this.notes = '';
+    },
+    showAddressPopup() {
+      console.log("Opening popup");
+      this.isPopupShown = true;  // Method to show the popup
+    },
+    closeAddressPopup() {
+      console.log("Closing popup");
+      this.isPopupShown = false; // Method to hide the popup
     }
   },
 };
 </script>
 
 <style scoped>
-
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
